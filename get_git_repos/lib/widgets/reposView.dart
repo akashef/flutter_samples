@@ -5,43 +5,20 @@ import 'package:get_git_repos/widgets/repoCardList.dart';
 
 import '../main.dart';
 
-class reposView extends StatefulWidget {
+class reposView extends StatelessWidget {
   List<Repo> reposList = repos_data;
   bool listViewBool = true;
 
   reposView(this.reposList, this.listViewBool);
 
   @override
-  _RepoListState createState() => _RepoListState();
-}
-
-class _RepoListState extends State<reposView> {
-  void updateModel() {
-    setState(() {
-      widget.reposList = repos_data;
-    });
-  }
-
-  void changeToList() {
-    setState(() {
-      widget.listViewBool = true;
-    });
-  }
-
-  void changeToGrid() {
-    setState(() {
-      widget.listViewBool = false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (widget.listViewBool) {
+  build(BuildContext context) {
+    if (listViewBool) {
       return ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: widget.reposList.length,
+        itemCount: reposList.length,
         itemBuilder: (context, index) {
-          return RepoCardList(widget.reposList[index]);
+          return RepoCardList(reposList[index]);
         },
       );
     } else {
@@ -50,9 +27,9 @@ class _RepoListState extends State<reposView> {
             crossAxisCount: 2,
             childAspectRatio: MediaQuery.of(context).size.width /
                 MediaQuery.of(context).size.height),
-        itemCount: widget.reposList.length,
+        itemCount: reposList.length,
         itemBuilder: (context, index) {
-          return RepoCardGrid(widget.reposList[index]);
+          return RepoCardGrid(reposList[index]);
         },
       );
     }
